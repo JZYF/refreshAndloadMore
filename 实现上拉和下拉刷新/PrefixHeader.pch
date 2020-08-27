@@ -1,0 +1,60 @@
+//
+//  PrefixHeader.pch
+//  实现上拉和下拉刷新
+//
+//  Created by song jian on 2019/7/8.
+//  Copyright © 2019 song jian. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+//屏幕宽度
+#define kScreenW [UIScreen mainScreen].bounds.size.width
+//屏幕高度
+#define kScreenH [UIScreen mainScreen].bounds.size.height
+
+//状态栏高度
+#define kStatusBarHeight [UIApplication sharedApplication].statusBarFrame.size.height
+//Navigation高度
+#define kNaviBarHeight [UINavigationBar appearance].frame.size.height
+//导航栏高度
+#define getRectNavAndStatusHight  self.navigationController.navigationBar.frame.size.height+[[UIApplication sharedApplication] statusBarFrame].size.height
+
+//判断是否为iPhone Xz及以上的机型
+#define IPHONE_X \
+({BOOL isPhoneX = NO;\
+if (@available(iOS 11.0, *)) {\
+isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bottom > 0.0;\
+}\
+(isPhoneX);})
+
+//tabbar的高度
+#define kTabBarHeight [[UITabBarController alloc]init].tabBar.frame.size.height
+
+//tabbar的高度(含iPhone X系列)
+#define kTabBarHeight_X (IPHONE_X ? (kTabBarHeight + 34) : kTabBarHeight)
+
+#define is_iPhoneXS_Max (kScreenW ==414.f&& kScreenH ==896.f)
+#define is_iPhoneX (kScreenW ==375.f&& kScreenH ==812.f)
+#define is_iPhone8_Plus (kScreenW ==414.f&& kScreenH ==736.f)
+#define is_iPhone8 (kScreenW ==375.f&& kScreenH ==667.f)
+#define is_iPhone5 (kScreenW ==320&& kScreenH ==568.f)
+#define is_iPhone5_OR_LESS (kScreenW ==320&& kScreenH <=568.f)
+
+#define SJFunc SJLog(@"%s",__func__)
+
+#ifdef DEBUG // 调试
+
+#define SJLog(...) NSLog(__VA_ARGS__);
+
+#else // 发布
+
+#define SJLog(...)
+
+#endif
+
+#endif /* PrefixHeader_pch */
